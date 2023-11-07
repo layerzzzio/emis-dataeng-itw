@@ -14,6 +14,11 @@ class AbstractETL(ABC):
         pass
 
     @abstractmethod
-    def transform(self, loaded_data) -> DataFrame:
-        """Transform the data after loading."""
+    def transform(self, extracted_data) -> DataFrame:
+        """Transform the extracted data after extraction."""
         pass
+
+    def run(self):
+        extracted_data = self.extract()
+        transformed_data = self.transform(extracted_data)
+        self.load(transformed_data)

@@ -1,6 +1,4 @@
-Welcome to EMIS x Analytics
-
-# Objective
+# Welcome to EMIS x Analytics 👋
 
 This repository contains all the code EMIS uses to extract, transform, load, analyze medical, patient data etc.
 
@@ -38,24 +36,29 @@ emis-dataeng-itw/
 │       └── s3_handler.py              # S3 interaction utility
 ├── fhir/
 │   ├── src/
-│   │   ├── json_to_tabular.py         # Top-level ETL script for JSON to tabular
-│   │   ├── extract_patient_ids.py     # Top-level ELT script for extracting patient IDs
-│   │   ├── json_to_tabular/           # Directory for functions related to JSON to tabular use case
+│   │   ├── lib/                        # Shared code for the fhir project
 │   │   │   ├── __init__.py
-│   │   │   └── some_function.py
-│   │   ├── extract_patient_ids/       # Directory for functions related to extract patient IDs use case
+│   │   │   ├── api_client.py           # Code to interact with APIs
+│   │   │   └── ...                     # Other shared utilities
+│   │   ├── json_to_tabular/            # Module for JSON to tabular ETL process
 │   │   │   ├── __init__.py
-│   │   │   └── another_function.py
-│   │   └── lib/
+│   │   │   ├── main.py                 # Main ETL script for JSON to tabular
+│   │   │   ├── extract.py              # Extraction logic for JSON to tabular
+│   │   │   ├── transform.py            # Transformation logic for JSON to tabular
+│   │   │   └── load.py                 # Loading logic for JSON to tabular
+│   │   └── extract_patient_ids/        # Module for extracting patient IDs
 │   │       ├── __init__.py
-│   │       └── api_client.py          # Code to interact with APIs
+│   │       ├── main.py                 # Main script for extracting patient IDs
+│   │       └── ...                     # Other scripts specific to this use case
 │   ├── tests/
 │   │   ├── json_to_tabular/
 │   │   │   ├── __init__.py
-│   │   │   └── test_some_function.py
+│   │   │   ├── test_extract.py
+│   │   │   ├── test_transform.py
+│   │   │   └── test_load.py
 │   │   ├── extract_patient_ids/
 │   │   │   ├── __init__.py
-│   │   │   └── test_another_function.py
+│   │   │   └── test_extract.py
 │   │   └── lib/
 │   │       └── test_api_client.py
 │   ├── airflow/
