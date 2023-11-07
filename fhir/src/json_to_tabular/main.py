@@ -1,12 +1,12 @@
-from common.etl.abstract_etl import ETLProcess
 from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql.functions import col
 import json
 
+from common.etl.abstract_etl import AbstractETL
 from fhir.src.fetch_patient_bundle.extract import fetch_fhir_bulk
 
 
-class JSONToTabular(ETLProcess):
+class JSONToTabular(AbstractETL):
 
     def __init__(self, api_url: str, dest_path: str):
         self.source_api_url = api_url
@@ -34,12 +34,6 @@ class JSONToTabular(ETLProcess):
     def load(self, df: DataFrame):
         # Load the transformed DataFrame to the destination
         df.write.format("parquet").save(self.destination_path)
-
-    def run(self):
-        # The run method orchestrates the ETL process
-        extracted_df = self.extract()
-        transformed_df = self.transform(extracted_df)
-        self.load(transformed_df)
 
 
 if __name__ == "__main__":

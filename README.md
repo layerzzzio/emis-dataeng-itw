@@ -20,64 +20,61 @@ The following project structure is designed to be scalable, containerizable and 
 
 ```
 emis-dataeng-itw/
-├── .azuredevops/                      # Azure DevOps CI/CD pipeline definitions for all projects
+├── .azuredevops/                      # Azure DevOps CI/CD pipeline definitions
 │   ├── ci-pipeline.yml                # Continuous Integration pipeline
 │   └── cd-pipeline.yml                # Continuous Deployment pipeline
-├── terraform/                         # Terraform infrastructure as code for all projects
+├── terraform/                         # Terraform infrastructure as code
 │   ├── main.tf                        # Main Terraform configuration
 │   ├── variables.tf                   # Terraform variables definition
 │   └── outputs.tf                     # Terraform outputs definition
-├── common/
+├── common/                            # Shared code across projects
 │   ├── etl/
 │   │   ├── abstract_etl.py            # Abstract ETL class
-│   │   └── abstract_elt.py            # Abstract ELT class (if needed)
+│   │   └── abstract_elt.py            # Abstract ELT class
 │   └── utils/
 │       ├── __init__.py
 │       └── s3_handler.py              # S3 interaction utility
-├── fhir/
+├── fhir/                              # FHIR project
 │   ├── src/
-│   │   ├── lib/                        # Shared code for the fhir project
-│   │   │   ├── __init__.py
-│   │   │   ├── api_client.py           # Code to interact with APIs
-│   │   │   └── ...                     # Other shared utilities
-│   │   ├── json_to_tabular/            # Module for JSON to tabular ETL process
-│   │   │   ├── __init__.py
-│   │   │   ├── main.py                 # Main ETL script for JSON to tabular
-│   │   │   ├── extract.py              # Extraction logic for JSON to tabular
-│   │   │   ├── transform.py            # Transformation logic for JSON to tabular
-│   │   │   └── load.py                 # Loading logic for JSON to tabular
-│   │   └── extract_patient_ids/        # Module for extracting patient IDs
-│   │       ├── __init__.py
-│   │       ├── main.py                 # Main script for extracting patient IDs
-│   │       └── ...                     # Other scripts specific to this use case
+│   │   ├── fetch_patient_bundle/      # FetchPatientBundle microservice
+│   │   │   ├── Dockerfile             # Dockerfile for FetchPatientBundle
+│   │   │   ├── main.py                # Main script for FetchPatientBundle
+│   │   │   ├── requirements.txt       # Dependencies for FetchPatientBundle
+│   │   │   └── ...                    # Other source files for FetchPatientBundle
+│   │   ├── json_to_tabular/           # JsonToTabular microservice
+│   │   │   ├── Dockerfile             # Dockerfile for JsonToTabular
+│   │   │   ├── main.py                # Main script for JsonToTabular
+│   │   │   ├── requirements.txt       # Dependencies for JsonToTabular
+│   │   │   └── ...                    # Other source files for JsonToTabular
+│   │   └── extract_patient_ids/       # ExtractPatientIds microservice
+│   │       ├── Dockerfile             # Dockerfile for ExtractPatientIds
+│   │       ├── main.py                # Main script for ExtractPatientIds
+│   │       ├── requirements.txt       # Dependencies for ExtractPatientIds
+│   │       └── ...                    # Other source files for ExtractPatientIds
 │   ├── tests/
+│   │   ├── fetch_patient_bundle/
+│   │   │   ├── test_main.py           # Tests for FetchPatientBundle
+│   │   │   └── ...                    # Other test files for FetchPatientBundle
 │   │   ├── json_to_tabular/
-│   │   │   ├── __init__.py
-│   │   │   ├── test_extract.py
-│   │   │   ├── test_transform.py
-│   │   │   └── test_load.py
-│   │   ├── extract_patient_ids/
-│   │   │   ├── __init__.py
-│   │   │   └── test_extract.py
-│   │   └── lib/
-│   │       └── test_api_client.py
+│   │   │   ├── test_main.py           # Tests for JsonToTabular
+│   │   │   └── ...                    # Other test files for JsonToTabular
+│   │   └── extract_patient_ids/
+│   │       ├── test_main.py           # Tests for ExtractPatientIds
+│   │       └── ...                    # Other test files for ExtractPatientIds
 │   ├── airflow/
 │   │   ├── dags/
 │   │   │   └── fhir_dag.py            # Airflow DAG for FHIR project
 │   │   └── plugins/
 │   │       └── custom_operator.py     # Custom Airflow operators for FHIR
-│   ├── docker/
-│   │   ├── Dockerfile
-│   │   └── docker-compose.yml         # Docker configuration for FHIR project
-│   └── env/
-│       ├── .env.development           # Environment variables for development
-│       ├── .env.staging               # Environment variables for staging
-│       └── .env.production            # Environment variables for production
-├── xxbc/
-│   (similar structure for the XXBC project)
+│   ├── env/
+│   │   ├── .env.development           # Environment variables for development
+│   │   ├── .env.staging               # Environment variables for staging
+│   │   └── .env.production            # Environment variables for production
+│   └── docker-compose.yml             # Docker Compose for FHIR project (for local development)
+├── xxbc/                              # XXBC project (structured similarly to FHIR project)
 ├── docker-compose.override.yml        # Overrides for local development for all projects
-├── docker-compose.dev.yml             # Docker Compose for development environment for all projects
-├── docker-compose.staging.yml         # Docker Compose for staging environment for all projects
-├── docker-compose.prod.yml            # Docker Compose for production environment for all projects
+├── docker-compose.dev.yml             # Docker Compose for development environment
+├── docker-compose.staging.yml         # Docker Compose for staging environment
+├── docker-compose.prod.yml            # Docker Compose for production environment
 └── README.md                          # Repository documentation
 ```

@@ -1,0 +1,8 @@
+version: '3.8'
+
+services:
+  etl_process:
+    build: .
+    environment:
+      - SOURCE_API_URL=http://api.fhir.org/v1/bundles
+      - S3_BUCKET=your-dev-s3-bucket-name

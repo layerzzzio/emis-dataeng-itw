@@ -1,0 +1,23 @@
+trigger:
+  branches:
+    include:
+    - develop
+    - staging
+    - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: echo "Running CI pipeline for the current branch..."
+  displayName: 'Run CI Tasks'
+
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.8'
+    addToPath: true
+
+- script: |
+    pip install -r requirements.txt
+    pytest tests/
+  displayName: 'Run Unit Tests'

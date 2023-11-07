@@ -1,0 +1,50 @@
+trigger: none
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - group: my-variable-group # This should include environment-specific variables like AWS credentials
+
+stages:
+- stage: DeployToDevelopment
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+  jobs:
+  - deployment: DeployToDev
+    environment: 'development'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: |
+              # Deployment steps for development
+              echo Deploying to development environment...
+              # ... (your deployment scripts here)
+
+- stage: DeployToStaging
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/staging'))
+  jobs:
+  - deployment: DeployToStaging
+    environment: 'staging'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: |
+              # Deployment steps for staging
+              echo Deploying to staging environment...
+              # ... (your deployment scripts here)
+
+- stage: DeployToProduction
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  jobs:
+  - deployment: DeployToProd
+    environment: 'production'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: |
+              # Deployment steps for production
+              echo Deploying to production environment...
+              # ... (your deployment scripts here)
