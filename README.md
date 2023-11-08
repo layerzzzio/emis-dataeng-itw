@@ -1,14 +1,16 @@
 # Welcome to EMIS x Analytics 👋
 
-This repository contains all the code EMIS uses to extract, transform, load, analyze medical, patient data etc.
+This repository contains all the code EMIS uses to extract, transform, load, analyze medical and patient data.
 
 # Getting started
-You should locally have:
+
+Download the following locally:
 - Docker
-- Python 3.8 with the following libraries
+- Python 3.8 with the following libraries ...
 - PyCharm
 
 # Stack
+
 The stack we use is:
 - Amazon S3
 - Databricks
@@ -16,7 +18,7 @@ The stack we use is:
 
 # Project structure
 
-The following project structure is designed to be scalable, containerizable and simple.
+The following project structure is designed to be scalable, containerized and simple.
 
 ```
 emis-dataeng-itw/
