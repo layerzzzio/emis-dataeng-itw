@@ -7,6 +7,7 @@ This documents explains my thinking process from discovering the use-case to del
 ![](resources/emis_architecture.003.jpeg)
 ![](resources/emis_architecture.004.jpeg)
 ![](resources/emis_architecture.005.jpeg)
+![](resources/emis_architecture.006.jpeg)
 
 ```
 emis-dataeng-itw/
