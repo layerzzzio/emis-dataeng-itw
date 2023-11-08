@@ -3,12 +3,12 @@ import unittest
 from unittest.mock import patch
 
 from common.utils.api_client import ReqType
-from fhir.src.fetch_patient_bundle.extract import fetch_fhir_bulk
+from fhir.src.ingest_bundle_to_s3.extract import fetch_fhir_bulk
 
 
 class TestExtract(unittest.TestCase):
 
-    @patch('fhir.src.fetch_patient_bundle.extract.make_request')
+    @patch('fhir.src.ingest_bundle_to_s3.extract.make_request')
     def test_fetch_fhir_bulk(self, mock_make_request):
         # Setup the mock response
         mock_response = {'data': 'expected response'}

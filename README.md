@@ -38,31 +38,23 @@ emis-dataeng-itw/
 │       └── s3_handler.py              # S3 interaction utility
 ├── fhir/                              # FHIR project
 │   ├── src/
-│   │   ├── fetch_patient_bundle/      # FetchPatientBundle microservice
-│   │   │   ├── Dockerfile             # Dockerfile for FetchPatientBundle
-│   │   │   ├── main.py                # Main script for FetchPatientBundle
-│   │   │   ├── requirements.txt       # Dependencies for FetchPatientBundle
-│   │   │   └── ...                    # Other source files for FetchPatientBundle
-│   │   ├── json_to_tabular/           # JsonToTabular microservice
-│   │   │   ├── Dockerfile             # Dockerfile for JsonToTabular
-│   │   │   ├── main.py                # Main script for JsonToTabular
-│   │   │   ├── requirements.txt       # Dependencies for JsonToTabular
-│   │   │   └── ...                    # Other source files for JsonToTabular
-│   │   └── extract_patient_ids/       # ExtractPatientIds microservice
-│   │       ├── Dockerfile             # Dockerfile for ExtractPatientIds
-│   │       ├── main.py                # Main script for ExtractPatientIds
-│   │       ├── requirements.txt       # Dependencies for ExtractPatientIds
-│   │       └── ...                    # Other source files for ExtractPatientIds
+│   │   ├── ingest_bundle_to_s3/       # IngestBundleToS3 microservice
+│   │   │   ├── Dockerfile             # Dockerfile for IngestBundleToS3
+│   │   │   ├── main.py                # Main script for IngestBundleToS3
+│   │   │   ├── requirements.txt       # Dependencies for IngestBundleToS3
+│   │   │   └── ...                    # Other source files for IngestBundleToS3
+│   │   ├── transform_bundle_json_to_tabular/           # TransformBundleJsonToTabular microservice
+│   │   │   ├── Dockerfile             # Dockerfile for TransformBundleJsonToTabular
+│   │   │   ├── main.py                # Main script for TransformBundleJsonToTabular
+│   │   │   ├── requirements.txt       # Dependencies for TransformBundleJsonToTabular
+│   │   │   └── ...                    # Other source files for TransformBundleJsonToTabular
 │   ├── tests/
-│   │   ├── fetch_patient_bundle/
-│   │   │   ├── test_main.py           # Tests for FetchPatientBundle
-│   │   │   └── ...                    # Other test files for FetchPatientBundle
-│   │   ├── json_to_tabular/
-│   │   │   ├── test_main.py           # Tests for JsonToTabular
-│   │   │   └── ...                    # Other test files for JsonToTabular
-│   │   └── extract_patient_ids/
-│   │       ├── test_main.py           # Tests for ExtractPatientIds
-│   │       └── ...                    # Other test files for ExtractPatientIds
+│   │   ├── ingest_bundle_to_s3/
+│   │   │   ├── test_main.py           # Tests for IngestBundleToS3
+│   │   │   └── ...                    # Other test files for IngestBundleToS3
+│   │   ├── transform_bundle_json_to_tabular/
+│   │   │   ├── test_main.py           # Tests for TransformBundleJsonToTabular
+│   │   │   └── ...                    # Other test files for TransformBundleJsonToTabular
 │   ├── airflow/
 │   │   ├── dags/
 │   │   │   └── fhir_dag.py            # Airflow DAG for FHIR project

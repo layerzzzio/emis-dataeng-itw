@@ -5,14 +5,14 @@ from pyspark.sql.functions import explode
 from delta.tables import DeltaTable
 
 from common.etl.abstract_etl import AbstractETL
-from fhir.src.json_to_tabular.transform import process_resource_type
+from fhir.src.transform_bundle_json_to_tabular.transform import process_resource_type
 
 
-class JSONToTabular(AbstractETL):
+class TransformBundleJsonToTabular(AbstractETL):
 
     def __init__(self, dest_path: str):
         self.destination_path = dest_path
-        self.spark = SparkSession.builder.appName("JSONToTabular").getOrCreate()
+        self.spark = SparkSession.builder.appName("TransformBundleJsonToTabular").getOrCreate()
 
     def extract(self) -> None:
         pass
@@ -46,7 +46,7 @@ class JSONToTabular(AbstractETL):
 
 if __name__ == "__main__":
     # Initialize the ETL process
-    etl_process = JSONToTabular(dest_path='to-be-defined')
+    etl_process = TransformBundleJsonToTabular(dest_path='to-be-defined')
 
     # Run the ETL process
     etl_process.run()

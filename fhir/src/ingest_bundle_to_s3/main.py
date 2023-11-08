@@ -3,10 +3,10 @@ from common.etl.abstract_etl import AbstractETL
 import json
 
 from common.utils.s3_handler import upload_to_s3, generate_s3_key
-from fhir.src.fetch_patient_bundle.extract import fetch_fhir_bulk
+from fhir.src.ingest_bundle_to_s3.extract import fetch_fhir_bulk
 
 
-class FetchPatientBundle(AbstractETL):
+class IngestBundleToS3(AbstractETL):
 
     def __init__(self, api_url: str, s3_bkt: str):
         self.source_api_url = api_url
@@ -35,7 +35,7 @@ if __name__ == "__main__":
     s3_bucket = "your-s3-bucket-name"
 
     # Initialize the ETL process
-    etl_process = FetchPatientBundle(source_api_url, s3_bucket)
+    etl_process = IngestBundleToS3(source_api_url, s3_bucket)
 
     # Run the ETL process
     etl_process.run()
