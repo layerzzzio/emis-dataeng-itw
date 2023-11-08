@@ -1,4 +1,4 @@
-from typing import List, Any
+from typing import List
 from common.etl.abstract_etl import AbstractETL
 import json
 

@@ -1,48 +1,52 @@
+from typing import Dict
+
 from pyspark.sql import SparkSession, DataFrame
-from pyspark.sql.functions import col
-import json
+from pyspark.sql.functions import explode
+from delta.tables import DeltaTable
 
 from common.etl.abstract_etl import AbstractETL
-from fhir.src.fetch_patient_bundle.extract import fetch_fhir_bulk
+from fhir.src.json_to_tabular.transform import process_resource_type
 
 
 class JSONToTabular(AbstractETL):
 
-    def __init__(self, api_url: str, dest_path: str):
-        self.source_api_url = api_url
+    def __init__(self, dest_path: str):
         self.destination_path = dest_path
         self.spark = SparkSession.builder.appName("JSONToTabular").getOrCreate()
 
-    def extract(self) -> DataFrame:
-        fetch_fhir_bulk('http://api.fhir.org//v1/resources')
-        # Here you would use requests or another method to fetch your JSON data
-        # For this example, let's assume you have the JSON data already loaded
-        json_data = [{"id": 1, "value": "A"}, {"id": 2, "value": "B"}]  # This would be replaced with your actual data fetching logic
-        rdd = self.spark.sparkContext.parallelize([json.dumps(record) for record in json_data])
-        df = self.spark.read.json(rdd)
-        return df
+    def extract(self) -> None:
+        pass
 
-    def transform(self, df: DataFrame) -> DataFrame:
-        # Perform transformations on the DataFrame
-        # For example, selecting columns or converting data types
-        transformed_df = df.select(
-            col("id").cast("integer"),
-            col("value").cast("string")
-        )
-        return transformed_df
+    def transform(self, df: DataFrame) -> Dict[str, DataFrame]:
+        df = self.spark.read.json("/path/to/ddMMYYY/fhir_data.json")
+        entries = df.select(explode("entry").alias("entry"))
+        df_diagnostic_reports = process_resource_type(entries, 'diagnostic_reports', {})
+        return {'diagnostic_reports': df_diagnostic_reports}
 
-    def load(self, df: DataFrame):
-        # Load the transformed DataFrame to the destination
-        df.write.format("parquet").save(self.destination_path)
+    def load(self, data: dict):
+        # Assuming 'data' contains the dataframes to be written to Delta tables
+        for table_name, df in data.items():
+            # The full path to the Delta table
+            delta_table_path = f"{self.destination_path}/{table_name}"
+
+            # Check if the Delta table exists
+            if DeltaTable.isDeltaTable(self.spark, delta_table_path):
+                # Load the Delta table as a DeltaTable object
+                delta_table = DeltaTable.forPath(self.spark, delta_table_path)
+
+                # Perform the upsert (merge) operation
+                delta_table.alias("target").merge(
+                    df.alias("source"),
+                    "target.primaryKey = source.primaryKey"
+                ).whenMatchedUpdateAll().whenNotMatchedInsertAll().execute()
+            else:
+                # If the table doesn't exist, write the DataFrame as a new Delta table
+                df.write.format("delta").save(delta_table_path)
 
 
 if __name__ == "__main__":
-    # Example usage
-    source_api_url = "http://api.fhir.org/v1/resources"
-    destination_path = "/path/to/store/tabular/data"
-
     # Initialize the ETL process
-    etl_process = JSONToTabular(source_api_url, destination_path)
+    etl_process = JSONToTabular(dest_path='to-be-defined')
 
     # Run the ETL process
     etl_process.run()
