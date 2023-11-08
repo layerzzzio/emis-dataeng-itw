@@ -2,7 +2,7 @@ from typing import List
 from common.etl.abstract_etl import AbstractETL
 
 
-class IngestBundleToDatalake(AbstractETL):
+class CurateBundle(AbstractETL):
 
     def __init__(self, s3_bkt: str):
         self.s3_bucket = s3_bkt
@@ -25,7 +25,7 @@ if __name__ == "__main__":
     s3_bucket = "your-s3-bucket-name"
 
     # Initialize the ETL process
-    etl_process = IngestBundleToDatalake(s3_bucket)
+    etl_process = CurateBundle(s3_bucket)
 
     # Run the ETL process
     etl_process.run()

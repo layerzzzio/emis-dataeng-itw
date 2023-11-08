@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-from fhir.src.ingest_bundle_to_s3.main import IngestBundleToS3
+from fhir.src.ingest_bundle_to_landing.main import IngestBundleToLanding
 
 # Constants for the DAG
 DEFAULT_ARGS = {
@@ -19,7 +19,7 @@ SOURCE_API_URL = "http://api.fhir.org/v1/bundles"
 S3_BUCKET = "your-s3-bucket-name"
 
 # Initialize the ETL process outside the tasks to use across multiple tasks
-etl_process = IngestBundleToS3(SOURCE_API_URL, S3_BUCKET)
+etl_process = IngestBundleToLanding(SOURCE_API_URL, S3_BUCKET)
 
 
 def extract_task():

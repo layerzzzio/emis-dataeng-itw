@@ -2,23 +2,23 @@ import unittest
 from unittest.mock import patch
 
 from common.utils.api_client import ReqType
-from fhir.src.ingest_bundle_to_s3.main import IngestBundleToS3
+from fhir.src.ingest_bundle_to_landing.main import IngestBundleToLanding
 
 
 class TestETLProcess(unittest.TestCase):
 
     def setUp(self):
         # Setup code, if needed
-        self.etl = IngestBundleToS3('http://api.fhir.org/v1/bundles', 'your-s3-bucket')
+        self.etl = IngestBundleToLanding('http://api.fhir.org/v1/bundles', 'your-s3-bucket')
 
-    @unittest.mock.patch('fhir.src.ingest_bundle_to_s3.ingest_bundle_to_s3.make_request')
+    @unittest.mock.patch('fhir.src.ingest_bundle_to_landing.ingest_bundle_to_landing.make_request')
     def test_extract(self, mock_make_request):
         # Define the mock response
         mock_response = [{'patient_id': 1, 'data': '...'}, {'patient_id': 2, 'data': '...'}]
         mock_make_request.return_value = mock_response
 
         # Instantiate the ETL object within the test method to ensure patching applies
-        etl = IngestBundleToS3('http://api.fhir.org/v1/bundles', 'dummy_bucket')
+        etl = IngestBundleToLanding('http://api.fhir.org/v1/bundles', 'dummy_bucket')
 
         # Call the extract method
         result = etl.extract()

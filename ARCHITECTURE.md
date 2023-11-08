@@ -26,20 +26,20 @@ emis-dataeng-itw/
 │       └── s3_handler.py              # S3 interaction utility
 ├── fhir/                              # FHIR project
 │   ├── src/
-│   │   ├── ingest_bundle_to_s3/       # IngestBundleToS3 microservice
-│   │   │   ├── Dockerfile             # Dockerfile for IngestBundleToS3
-│   │   │   ├── main.py                # Main script for IngestBundleToS3
-│   │   │   ├── requirements.txt       # Dependencies for IngestBundleToS3
-│   │   │   └── ...                    # Other source files for IngestBundleToS3
+│   │   ├── ingest_bundle_to_landing/       # IngestBundleToLanding microservice
+│   │   │   ├── Dockerfile             # Dockerfile for IngestBundleToLanding
+│   │   │   ├── main.py                # Main script for IngestBundleToLanding
+│   │   │   ├── requirements.txt       # Dependencies for IngestBundleToLanding
+│   │   │   └── ...                    # Other source files for IngestBundleToLanding
 │   │   ├── transform_bundle_json_to_tabular/           # TransformBundleJsonToTabular microservice
 │   │   │   ├── Dockerfile             # Dockerfile for TransformBundleJsonToTabular
 │   │   │   ├── main.py                # Main script for TransformBundleJsonToTabular
 │   │   │   ├── requirements.txt       # Dependencies for TransformBundleJsonToTabular
 │   │   │   └── ...                    # Other source files for TransformBundleJsonToTabular
 │   ├── tests/
-│   │   ├── ingest_bundle_to_s3/
-│   │   │   ├── test_main.py           # Tests for IngestBundleToS3
-│   │   │   └── ...                    # Other test files for IngestBundleToS3
+│   │   ├── ingest_bundle_to_landing/
+│   │   │   ├── test_main.py           # Tests for IngestBundleToLanding
+│   │   │   └── ...                    # Other test files for IngestBundleToLanding
 │   │   ├── transform_bundle_json_to_tabular/
 │   │   │   ├── test_main.py           # Tests for TransformBundleJsonToTabular
 │   │   │   └── ...                    # Other test files for TransformBundleJsonToTabular
